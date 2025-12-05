@@ -7,6 +7,30 @@ function calculateExpFromText(text) {
   const words = text.trim().split(/\s+/).length;
   return words;
 }
+// Generate a logo char
+async function generateLogo(prompt) {
+  try {
+    const response = await fetch("/api/generate-logo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await response.json();
+    if (data.imageUrl) {
+      return data.imageUrl;
+    } else {
+      console.error(data.error);
+      return null;
+    }
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 
 // Create a character object + render
 function addCharacter(text, name, book, chapters) {
@@ -14,6 +38,30 @@ function addCharacter(text, name, book, chapters) {
     alert("Please fill all fields.");
     return;
   }
+
+  async function addCharacter(text, name, book, chapters) {
+  if (!text || !name || !book || !chapters) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  const exp = calculateExpFromText(text);
+
+  // Generate a logo from the text
+  const logoUrl = await generateLogo(text);
+
+  const character = {
+    name,
+    book,
+    chapters,
+    exp,
+    logoUrl
+  };
+
+  characters.push(character);
+  renderCharacters();
+}
+
 
   const exp = calculateExpFromText(text);
 
@@ -39,15 +87,11 @@ function renderCharacters() {
     card.className = "character-card";
 
     card.innerHTML = `
-      <div class="character-image">
-        <!-- Later replaced with GPT-generated image -->
-        ${char.image ? `<img src="${char.image}" style="width:100%; height:100%; border-radius:6px;">` : ""}
-      </div>
-
       <h3>${char.name}</h3>
       <p><strong>Book:</strong> ${char.book}</p>
       <p><strong>Chapters:</strong> ${char.chapters}</p>
       <p><strong>EXP:</strong> ${char.exp}</p>
+      ${char.logoUrl ? `<img src="${char.logoUrl}" alt="${char.name}" />` : ""}
     `;
 
     container.appendChild(card);

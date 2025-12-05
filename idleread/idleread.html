@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reading Idle | Character Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      padding: 20px;
+    }
+
+    #app {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    textarea, input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .character-card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .character-image {
+      width: 100%;
+      height: 150px;
+      background: #ddd;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <h1>Reading Idle | Character Creator</h1>
+
+    <textarea id="characterDescription" rows="4" cols="50"
+      placeholder="Paste a paragraph from the book..."></textarea>
+
+    <input id="characterName" placeholder="Character Name">
+
+    <input id="bookName" placeholder="Book Name">
+
+    <input id="chapterCount" type="number" min="1" placeholder="Total Chapters">
+
+    <button id="addCharacterBtn">Add New Character</button>
+  </div>
+
+  <h2>Your Characters</h2>
+  <div id="characterList"></div>
+
+  <script type="module" src="idlereadscript.js"></script>
+
+</body>
+</html>
